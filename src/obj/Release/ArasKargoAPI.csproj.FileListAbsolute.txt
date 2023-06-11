@@ -1,0 +1,9 @@
+C:\Users\kurt\source\repos\ArasKargoAPI\bin\Release\ArasKargoAPI.dll
+C:\Users\kurt\source\repos\ArasKargoAPI\bin\Release\ArasKargoAPI.pdb
+C:\Users\kurt\source\repos\ArasKargoAPI\bin\Release\Newtonsoft.Json.dll
+C:\Users\kurt\source\repos\ArasKargoAPI\bin\Release\Newtonsoft.Json.xml
+C:\Users\kurt\source\repos\ArasKargoAPI\obj\Release\ArasKargoAPI.csproj.AssemblyReference.cache
+C:\Users\kurt\source\repos\ArasKargoAPI\obj\Release\ArasKargoAPI.csproj.CoreCompileInputs.cache
+C:\Users\kurt\source\repos\ArasKargoAPI\obj\Release\ArasKargoAPI.csproj.CopyComplete
+C:\Users\kurt\source\repos\ArasKargoAPI\obj\Release\ArasKargoAPI.dll
+C:\Users\kurt\source\repos\ArasKargoAPI\obj\Release\ArasKargoAPI.pdb
