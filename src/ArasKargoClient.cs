@@ -58,7 +58,12 @@ namespace ArasKargoAPI
             ArasResponse aras;
             try
             {
-                aras = JsonConvert.DeserializeObject<ArasResponse>(content);
+                aras = JsonConvert.DeserializeObject<ArasResponse>(content, new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                });
             }
             catch (Exception e)
             {
@@ -88,8 +93,9 @@ namespace ArasKargoAPI
             // Ne zeman expire yiyor? bende bilmiyorum aslında.
             // Expire yiyene kadar bunları kullanmaya devam.
             // Unique ID ile matchlenmiş bi kod olabilir.
-            const string captcha_code = "6o6fva";
-            const string uniq_id = "cf5197a9-9445-4e85-923a-9c999be7db73";
+            // Edit: 2 haftada bir expire yiyor.
+            const string captcha_code = "dyn89c";
+            const string uniq_id = "414519da-8eb0-444c-92c8-1f6d2f4c826e";
 
             var postData2 = "{\"TrackingNumber\":\"" + _takip_kodu + "\",\"IsWeb\":true,\"UniqueCode\":\"" + uniq_id + "\",\"SecretKey\":\"" + captcha_code + "\",\"LanguageCode\":\"" + _dil + "\"}";
             var contentPost2 = new StringContent(postData2, Encoding.UTF8, "application/json");
@@ -97,10 +103,26 @@ namespace ArasKargoAPI
             var content2 = response2.Content.ReadAsStringAsync().Result;
 
             var c2Dynamic = JsonConvert.DeserializeObject<dynamic>(content2);
-            var kBilgileriNodeFirst = Convert.ToString(c2Dynamic.Responses.First);
+            dynamic kBilgileriNodeFirst = null;
 
-            var gonderiBilgileri = JsonConvert.DeserializeObject<GonderiBilgileri>(kBilgileriNodeFirst);
-            cikis.Gonderi = gonderiBilgileri;
+            try
+            {
+                kBilgileriNodeFirst = Convert.ToString(c2Dynamic.Responses.First);
+                var gonderiBilgileri = JsonConvert.DeserializeObject<GonderiBilgileri>(kBilgileriNodeFirst, new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Error = delegate (object aq, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+                    {
+                        args.ErrorContext.Handled = true;
+                    }
+                });
+                cikis.Gonderi = gonderiBilgileri;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Gönderi bilgileri alınamadı. +" + e.Message);
+            }
+
 
             #endregion
 

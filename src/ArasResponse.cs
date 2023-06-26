@@ -26,8 +26,9 @@ namespace ArasKargoAPI
 
     public class KargoIslem
     {
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("TransactionDate")]
-        public DateTime Tarih { get; set; }
+        public DateTime? Tarih { get; set; }
 
         [JsonProperty("UnitName")]
         public string Bolge { get; set; }
@@ -50,6 +51,7 @@ namespace ArasKargoAPI
         [JsonProperty("DocumentNumber")]
         public string DokumanNumarasi { get; set; }
 
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("WaybillDate")]
         public DateTime GonderiTarihi { get; set; }
 
@@ -77,6 +79,7 @@ namespace ArasKargoAPI
         [JsonProperty("DeliveryUnitName")]
         public string VarisSubesi { get; set; }
 
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("PlannedDeliveryDate")]
         public DateTime TahminiTeslimTarihi { get; set; }
 
